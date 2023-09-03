@@ -27,5 +27,5 @@ def main():
     get_audio_from_text(pdf_text, 'ru')
 
 
-if __name__ =='__main__':
+if __name__ == '__main__':
     main()
