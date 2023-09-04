@@ -1,6 +1,5 @@
 import pdfplumber
 
-from io import BytesIO
 from gtts import gTTS
 
 
@@ -15,17 +14,17 @@ def get_audio_from_text(text, language):
 
 
 def get_pdf_text(pdf):
-    with pdfplumber.PDF(pdf) as pdf_file:
-        pages_pdf_text = [page.extract_text() for page in pdf_file.pages]
-        pdf_text = ' '.join(pages_pdf_text)
-        return pdf_text
+    pdf_text = ''
+    for page in pdf:
+        pdf_text += page.extract_text()
+    return pdf_text
 
 
 def main():
     file_path = "text.pdf"
-    with open(file_path, mode='rb') as file:
-        pdf = BytesIO(file.read())
-    pdf_text = get_pdf_text(pdf)
+    with pdfplumber.PDF(open(file_path, mode='rb')) as pdf_file:
+        pdf_text = get_pdf_text(pdf_file.pages)
+    print(pdf_text)
     get_audio_from_text(pdf_text, 'ru')
 
 
