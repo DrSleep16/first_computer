@@ -14,9 +14,7 @@ def get_audio_from_text(text, language):
 
 
 def get_pdf_text(pdf):
-    pdf_text = ''
-    for page in pdf:
-        pdf_text += page.extract_text()
+    pdf_text = ''.join(page.extract_text() for page in pdf)
     return pdf_text
 
 
